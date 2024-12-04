@@ -118,6 +118,23 @@ void addnewclient() {
     cout << "newclientaddedsuccessfully";
 }
 
+void deleteclient() {
+    string accountnumber;
+    cout << "Please enter account number to delete\n";
+    cin >> accountnumber;
+
+    for (size_t i = 0; i < clients.size(); ++i) {
+        if (clients[i].accountNumber == accountnumber) {
+            clients.erase(clients.begin() + i);
+            break;
+        }
+        else {
+            cout << "client not found";
+        }
+    }
+
+}
+
 int main() {
 
     system("cls");
@@ -135,6 +152,11 @@ int main() {
     }
     case 2: {
         addnewclient();
+        break;
+    }
+
+    case 3: {
+        deleteclient();
         break;
     }
     }
