@@ -160,6 +160,34 @@ void updateclientinfo() {
     }
 }
 
+void findclient() {
+    string accountnumber;
+    cout << "Please enter account number to find: ";
+    cin >> accountnumber;
+
+    bool found = false;
+
+    for (const auto& client : clients) {
+        if (client.accountNumber == accountnumber) {
+            cout << "Account Number: " << client.accountNumber << "\n";
+            cout << "Pin Code: " << client.pinCode << "\n";
+            cout << "Name: " << client.name << "\n";
+            cout << "Phone: " << client.phone << "\n";
+            cout << "Balance: " << fixed << setprecision(2) << client.balance << "\n";
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "client not found";
+    }
+
+    cout << "\nPress Enter to return to the main menu...";
+    cin.ignore();  // Clear any leftover newline characters
+    cin.get();
+}
+
 int main() {
 
     system("cls");
@@ -186,6 +214,11 @@ int main() {
         }
         case 4: {
             updateclientinfo();
+            break;
+        }
+
+        case 5: {
+            findclient();
             break;
         }
         }
