@@ -4,8 +4,10 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <string>
 
 using namespace std;
+
 
 struct Client {
     string accountNumber;
@@ -36,6 +38,7 @@ short readmainmenuoption() {
 
 short showmainmenu() {
 
+    system("cls");
         cout << "[1] Show Clinet List\n";
         cout << "[2] Add New Clinet\n";
         cout << "[3] Delete Client\n";
@@ -55,11 +58,11 @@ void ShowClientList() {
     }
     cout << endl;
 
-    cout << left << setw(20) << "|  Account Number  "
-        << left << setw(12) << "|  Pin Code  "
-        << left << setw(30) << "|  Client Name"
-        << left << setw(20) << "|  Phone"
-        << left << setw(15) << "|  Balance\n";
+    cout << left << setw(15) << "|  Account Number  "
+       << setw(10) << "|  Pin Code  "
+        << setw(20) << "|  Client Name"
+         << setw(10) << "|  Phone"
+         << setw(10) << "|  Balance\n";
     for (int i = 0; i < 50; i++) {
         cout << '_';
     }
@@ -67,15 +70,15 @@ void ShowClientList() {
 
 
     for (const auto& client : clients) {
-        cout << left << setw(20) << client.accountNumber
-            << left << setw(12)  << client.pinCode
-            << left << setw(30) << client.name
-            << left << setw(20) << client.phone
-            << left << setw(15) << fixed << setprecision(2) << client.balance
+        cout << left << setw(15) << "|  " << client.accountNumber
+            << setw(10) << "|  " << client.pinCode
+             << setw(20) << "|  " << client.name
+             << setw(10) << "|  " << client.phone
+           << setw(10) << "|  " << fixed << setprecision(2) << client.balance
             << endl;
     }
 
-    for (int i = 0; i < 75; i++) {
+    for (int i = 0; i < 105; i++) {
         cout << '_';
     }
 
@@ -88,21 +91,50 @@ void ShowClientList() {
 
 }
 
+void addnewclient() {
+    system("cls");
+    Client newclient;
+    cout << "Enter Account Number: ";
+    cin.ignore();
+    getline(cin, newclient.accountNumber);
+
+    cout << "Enter Pin Code: ";
+    getline(cin, newclient.pinCode);
+
+    cout << "Enter Client Name: ";
+    getline(cin, newclient.name);
+
+    cout << "Enter Phone Number: ";
+    getline(cin, newclient.phone);
+
+    cout << "Enter Balance: ";
+    while (!(cin >> newclient.balance)) {
+        cout << "Invalid input. Please enter a numeric balance: ";
+        cin.clear(); // Clear error flags
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+    }
+
+    clients.push_back(newclient);
+    cout << "newclientaddedsuccessfully";
+}
+
 int main() {
 
     system("cls");
     int OriginalNumber = 0;
+    populateClients();
     do {
 
         OriginalNumber = showmainmenu();
 
 
-        populateClients();
-
-
     switch (OriginalNumber) {
     case 1: {
         ShowClientList();
+        break;
+    }
+    case 2: {
+        addnewclient();
         break;
     }
     }
