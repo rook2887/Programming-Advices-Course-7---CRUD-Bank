@@ -135,6 +135,31 @@ void deleteclient() {
 
 }
 
+void updateclientinfo() {
+    string accountnumber;
+    cout << "Please enter account number to update\n";
+    cin >> accountnumber;
+
+    for (auto& client : clients) {
+        if (client.accountNumber == accountnumber) {
+            cout << "Enter new name (current: " << client.name << "): ";
+            cin.ignore();  // To ignore the leftover newline from previous input
+            getline(cin, client.name);  // Get the new name
+
+            cout << "Enter new phone number (current: " << client.phone << "): ";
+            getline(cin, client.phone);  // Get the new phone number
+
+            cout << "Enter new balance (current: " << client.balance << "): ";
+            cin >> client.balance;  // Get the new balance
+
+            cout << "Client information updated successfully!\n";
+        }
+        else {
+            cout << "client not found";
+        }
+    }
+}
+
 int main() {
 
     system("cls");
@@ -145,23 +170,26 @@ int main() {
         OriginalNumber = showmainmenu();
 
 
-    switch (OriginalNumber) {
-    case 1: {
-        ShowClientList();
-        break;
-    }
-    case 2: {
-        addnewclient();
-        break;
-    }
+        switch (OriginalNumber) {
+        case 1: {
+            ShowClientList();
+            break;
+        }
+        case 2: {
+            addnewclient();
+            break;
+        }
 
-    case 3: {
-        deleteclient();
-        break;
-    }
-    }
+        case 3: {
+            deleteclient();
+            break;
+        }
+        case 4: {
+            updateclientinfo();
+            break;
+        }
+        }
     } while (OriginalNumber != 6);
     
     return 0;
 }
-
